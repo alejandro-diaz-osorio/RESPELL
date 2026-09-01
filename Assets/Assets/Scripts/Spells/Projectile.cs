@@ -27,4 +27,30 @@ public class Projectile : MonoBehaviour
 
         Destroy(gameObject, lifetime);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyHealth enemyHealth =
+                collision.gameObject.GetComponent<EnemyHealth>();
+
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+
+            if (!piercing)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            if (!bouncing)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 }
