@@ -6,6 +6,9 @@ public class PlayerHealth : MonoBehaviour
 
     private float currentHealth;
 
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -14,6 +17,9 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+
+        currentHealth =
+            Mathf.Max(currentHealth, 0);
 
         Debug.Log(
             $"Player recibió {damage} de daño. " +

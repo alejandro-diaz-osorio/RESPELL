@@ -1,16 +1,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Enemy : MonoBehaviour
+public class ChaserEnemy : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float contactDamage = 10f;
     [SerializeField] private float damageCooldown = 1f;
 
-    private float nextDamageTime;
-
     private Rigidbody2D rb;
     private Transform player;
+
+    private float nextDamageTime;
 
     private void Awake()
     {
@@ -57,7 +57,8 @@ public class Enemy : MonoBehaviour
         {
             playerHealth.TakeDamage(contactDamage);
 
-            nextDamageTime = Time.time + damageCooldown;
+            nextDamageTime =
+                Time.time + damageCooldown;
         }
     }
 }
