@@ -9,12 +9,14 @@ public class ChaserEnemy : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
+    private RoomCombat room;
 
     private float nextDamageTime;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        room = GetComponentInParent<RoomCombat>();
     }
 
     private void Start()
@@ -30,7 +32,7 @@ public class ChaserEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player == null)
+        if (player == null || room == null || !room.IsPlayerInside)
         {
             rb.linearVelocity = Vector2.zero;
             return;

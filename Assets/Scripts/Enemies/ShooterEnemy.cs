@@ -12,12 +12,14 @@ public class ShooterEnemy : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
+    private RoomCombat room;
 
     private float nextFireTime;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        room = GetComponentInParent<RoomCombat>();
     }
 
     private void Start()
@@ -33,7 +35,7 @@ public class ShooterEnemy : MonoBehaviour
 
     private void Update()
     {
-        if (player == null)
+        if (player == null || room == null || !room.IsPlayerInside)
             return;
 
         if (Time.time >= nextFireTime)
@@ -47,7 +49,7 @@ public class ShooterEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player == null)
+        if (player == null || room == null || !room.IsPlayerInside)
         {
             rb.linearVelocity = Vector2.zero;
             return;

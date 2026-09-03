@@ -11,6 +11,7 @@ public class ChargerEnemy : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
+    private RoomCombat room;
 
     private Vector2 chargeDirection;
 
@@ -28,6 +29,7 @@ public class ChargerEnemy : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        room = GetComponentInParent<RoomCombat>();
 
         currentState = State.Preparing;
         stateTimer = preparationTime;
@@ -46,7 +48,7 @@ public class ChargerEnemy : MonoBehaviour
 
     private void Update()
     {
-        if (player == null)
+        if (player == null || room == null || !room.IsPlayerInside)
             return;
 
         stateTimer -= Time.deltaTime;
@@ -59,7 +61,7 @@ public class ChargerEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player == null)
+        if (player == null || room == null || !room.IsPlayerInside)
         {
             rb.linearVelocity = Vector2.zero;
             return;
