@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private SpellController spellController;
 
     private Rigidbody2D rb;
     private Vector2 movement;
 
     private Vector2 lastDirection = Vector2.down;
+    public Vector2 LastDirection => lastDirection;
+    public float MoveSpeed => moveSpeed;
 
     private void Awake()
     {
@@ -38,11 +39,6 @@ public class PlayerController : MonoBehaviour
         if (movement != Vector2.zero)
         {
             lastDirection = movement;
-        }
-
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            spellController.Cast(lastDirection);
         }
     }
 

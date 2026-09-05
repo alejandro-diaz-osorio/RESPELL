@@ -10,6 +10,8 @@ public class SpellStats
 
     public int projectileCount = 1;
 
+    public float fireRate = 4f;
+
     public bool piercing = false;
     public bool bouncing = false;
     public bool explosive = false;

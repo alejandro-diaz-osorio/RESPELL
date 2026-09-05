@@ -11,22 +11,32 @@ public class Projectile : MonoBehaviour
     private bool piercing;
     private bool bouncing;
 
-    public void Initialize(Vector2 direction, SpellStats stats)
+    private ElementData element;
+
+    public void Initialize(
+        Vector2 direction,
+        SpellStats stats,
+        float finalSpeed,
+        float effectiveDamage,
+        ElementData element)
     {
         rb = GetComponent<Rigidbody2D>();
 
-        damage = stats.damage;
+        damage = effectiveDamage;
         lifetime = stats.lifetime;
 
         piercing = stats.piercing;
         bouncing = stats.bouncing;
 
+        this.element = element;
+
         transform.localScale = Vector3.one * stats.size;
 
-        rb.linearVelocity = direction.normalized * stats.speed;
+        rb.linearVelocity = direction.normalized * finalSpeed;
 
         Destroy(gameObject, lifetime);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -37,6 +47,11 @@ public class Projectile : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
+
+                if (element != null)
+                {
+                    enemyHealth.ApplyElement(element);
+                }
             }
 
             if (!piercing)

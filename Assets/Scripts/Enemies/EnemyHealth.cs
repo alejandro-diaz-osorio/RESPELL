@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine flashRoutine;
+    private Coroutine statusEffectRoutine;
     private bool isDead;
 
     public event Action<EnemyHealth> OnEnemyDeath;
@@ -48,13 +49,49 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
-        // Si ya estaba parpadeando (golpe rápido seguido), reiniciamos el parpadeo
         if (flashRoutine != null)
         {
             StopCoroutine(flashRoutine);
         }
 
         flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    public void ApplyElement(ElementData element)
+    {
+        if (isDead || element == null)
+            return;
+
+        // Si el elemento no define daño sobre el tiempo, no hacemos nada
+        if (element.tickDamage <= 0f)
+            return;
+
+        // Si ya había un efecto activo, lo reiniciamos con el nuevo
+        if (statusEffectRoutine != null)
+        {
+            StopCoroutine(statusEffectRoutine);
+        }
+
+        statusEffectRoutine = StartCoroutine(StatusEffectRoutine(element));
+    }
+
+    private IEnumerator StatusEffectRoutine(ElementData element)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < element.duration)
+        {
+            yield return new WaitForSeconds(element.tickInterval);
+
+            elapsed += element.tickInterval;
+
+            if (isDead)
+                yield break;
+
+            TakeDamage(element.tickDamage);
+        }
+
+        statusEffectRoutine = null;
     }
 
     private IEnumerator FlashRoutine()
@@ -74,18 +111,19 @@ public class EnemyHealth : MonoBehaviour
 
         isDead = true;
 
-        // Si estaba parpadeando al morir, detenemos la corrutina
         if (flashRoutine != null)
         {
             StopCoroutine(flashRoutine);
             spriteRenderer.color = originalColor;
         }
 
-        // Avisamos de inmediato: el contador de enemigos y RoomCombat
-        // no deben esperar a que termine la animación de muerte
+        if (statusEffectRoutine != null)
+        {
+            StopCoroutine(statusEffectRoutine);
+        }
+
         OnEnemyDeath?.Invoke(this);
 
-        // Evitamos que el "cadáver" siga bloqueando o recibiendo golpes
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
         {
