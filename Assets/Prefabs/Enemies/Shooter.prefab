@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6681500562723137022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.01, y: 5.98, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 10
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.5
 --- !u!114 &7973109716517867918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8333eec4a45c9479065e48b5b0421b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShooterEnemy
-  moveSpeed: 1.5
+  moveSpeed: 5
   preferredDistance: 5
   projectilePrefab: {fileID: 1292916113528000217, guid: 68b3036e9ccbda140b8fb51c47c239f6, type: 3}
-  projectileSpeed: 5
+  projectileSpeed: 1
   fireRate: 2

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,21 +18,25 @@ public class RoomCombat : MonoBehaviour
     private RoomState currentState = RoomState.Waiting;
     private bool playerInside;
 
+    public static RoomCombat CurrentRoom { get; private set; }
+
+    // Evento global: se dispara UNA vez, justo cuando cualquier sala se completa
+    public static event Action OnAnyRoomCompleted;
+
     public int EnemiesRemaining => enemies.Count;
     public RoomState CurrentState => currentState;
     public bool IsPlayerInside => playerInside;
 
     private void Start()
     {
-        // Buscar enemigos hijos al iniciar
-        EnemyHealth[] roomEnemies = GetComponentsInChildren<EnemyHealth>(true);
+        EnemyHealth[] roomEnemies =
+            GetComponentsInChildren<EnemyHealth>(true);
 
         foreach (EnemyHealth enemy in roomEnemies)
         {
             RegisterEnemy(enemy);
         }
 
-        // Asegurarnos de que las puertas empiecen abiertas si la sala está en espera
         OpenDoors();
     }
 
@@ -41,6 +46,7 @@ public class RoomCombat : MonoBehaviour
             return;
 
         playerInside = true;
+        CurrentRoom = this;
 
         if (currentState == RoomState.Waiting)
         {
@@ -50,15 +56,19 @@ public class RoomCombat : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
+            return;
+
+        playerInside = false;
+
+        if (CurrentRoom == this)
         {
-            playerInside = false;
+            CurrentRoom = null;
         }
     }
 
     private void StartCombat()
     {
-        // Si no hay enemigos, la sala se completa de inmediato
         if (EnemiesRemaining == 0)
         {
             CompleteRoom();
@@ -73,8 +83,11 @@ public class RoomCombat : MonoBehaviour
 
     private void RegisterEnemy(EnemyHealth enemy)
     {
-        if (enemy == null) return;
-        if (enemies.Contains(enemy)) return;
+        if (enemy == null)
+            return;
+
+        if (enemies.Contains(enemy))
+            return;
 
         enemies.Add(enemy);
         enemy.OnEnemyDeath += HandleEnemyDeath;
@@ -100,7 +113,11 @@ public class RoomCombat : MonoBehaviour
     {
         currentState = RoomState.Completed;
         OpenDoors();
+
         Debug.Log("¡¡¡ HABITACIÓN COMPLETADA !!!");
+
+        // Avisamos UNA sola vez de que esta sala se acaba de completar
+        OnAnyRoomCompleted?.Invoke();
     }
 
     private void CloseDoors()
@@ -108,9 +125,7 @@ public class RoomCombat : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door != null)
-            {
                 door.Close();
-            }
         }
     }
 
@@ -119,9 +134,7 @@ public class RoomCombat : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door != null)
-            {
                 door.Open();
-            }
         }
     }
 
@@ -130,9 +143,12 @@ public class RoomCombat : MonoBehaviour
         foreach (EnemyHealth enemy in enemies)
         {
             if (enemy != null)
-            {
                 enemy.OnEnemyDeath -= HandleEnemyDeath;
-            }
+        }
+
+        if (CurrentRoom == this)
+        {
+            CurrentRoom = null;
         }
     }
 }
