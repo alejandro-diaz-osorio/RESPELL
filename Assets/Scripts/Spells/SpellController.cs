@@ -19,8 +19,6 @@ public class SpellController : MonoBehaviour
 
     private void Awake()
     {
-        // Stats apunta directamente a baseStats (misma referencia),
-        // así los cambios en el Inspector durante Play se reflejan al instante
         Stats = baseStats;
     }
 
@@ -39,8 +37,6 @@ public class SpellController : MonoBehaviour
             ? playerController.MoveSpeed
             : 0f;
 
-        // Aplicamos los multiplicadores del elemento SOLO para este disparo,
-        // sin modificar Stats de forma permanente
         float damageMultiplier = element != null ? element.damageMultiplier : 1f;
         float speedMultiplier = element != null ? element.speedMultiplier : 1f;
 
@@ -63,5 +59,23 @@ public class SpellController : MonoBehaviour
 
             projectileScript.Initialize(direction, Stats, finalSpeed, effectiveDamage, element);
         }
+    }
+
+    public void ApplyModifier(ModifierData modifier)
+    {
+        if (modifier == null)
+            return;
+
+        Stats.damage += modifier.damageBonus;
+        Stats.speed += modifier.speedBonus;
+        Stats.fireRate += modifier.fireRateBonus;
+        Stats.projectileCount += modifier.projectileCountBonus;
+
+        Stats.piercing |= modifier.enablePiercing;
+        Stats.bouncing |= modifier.enableBouncing;
+        Stats.explosive |= modifier.enableExplosive;
+        Stats.homing |= modifier.enableHoming;
+
+        Debug.Log($"Modificador aplicado: {modifier.modifierName}");
     }
 }

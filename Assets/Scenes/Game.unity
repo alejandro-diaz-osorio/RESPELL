@@ -771,10 +771,10 @@ MonoBehaviour:
     lifetime: 2
     projectileCount: 1
     fireRate: 4
-    piercing: 0
+    piercing: 1
     bouncing: 0
     explosive: 0
-    homing: 1
+    homing: 0
     explosionRadius: 7.5
     explosionDamage: 15
     homingTurnSpeed: 180
@@ -9502,6 +9502,52 @@ Transform:
   - {fileID: 1514884477}
   m_Father: {fileID: 1207214819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1950513053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1950513055}
+  - component: {fileID: 1950513054}
+  m_Layer: 0
+  m_Name: DebugTools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1950513054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950513053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e140576195d2b4781dbf7421528809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugModifierTester
+  spellController: {fileID: 204961312}
+  modifierToTest: {fileID: 11400000, guid: 03064b52f12cce0479551a6a67d46737, type: 2}
+--- !u!4 &1950513055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950513053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1960472574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 822126127894462496, guid: 782ba76db5dc4894daa9e1601a3f164e, type: 3}
@@ -10093,3 +10139,4 @@ SceneRoots:
   - {fileID: 412832498}
   - {fileID: 1023780200}
   - {fileID: 1865448402}
+  - {fileID: 1950513055}
