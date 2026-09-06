@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da72a1deba8f7ee438072074c6de5419, type: 3}
   m_Name: MultiShot
   m_EditorClassIdentifier: Assembly-CSharp::ModifierData
-  modifierName: Damage Up
+  modifierName: MultiShot
   damageBonus: 0
   speedBonus: 0
   fireRateBonus: 0
-  projectileCountBonus: 0
+  projectileCountBonus: 1
   enablePiercing: 0
   enableBouncing: 0
   enableExplosive: 0

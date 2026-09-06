@@ -14,13 +14,21 @@ public class RoomCombat : MonoBehaviour
     [Header("Doors")]
     [SerializeField] private List<Door> doors = new();
 
+    [Header("Pickup de recompensa")]
+    [SerializeField] private GameObject pickupPrefab;
+    [SerializeField] private List<ModifierData> possibleModifiers = new();
+
+    [Header("Pickup de vida")]
+    [SerializeField] private GameObject healthPickupPrefab;
+    [SerializeField] private float healthPickupChance = 0.3f;
+    private readonly float[] healPercentages = { 0.25f, 0.5f, 0.75f, 1f };
+
     private readonly List<EnemyHealth> enemies = new();
     private RoomState currentState = RoomState.Waiting;
     private bool playerInside;
 
     public static RoomCombat CurrentRoom { get; private set; }
 
-    // Evento global: se dispara UNA vez, justo cuando cualquier sala se completa
     public static event Action OnAnyRoomCompleted;
 
     public int EnemiesRemaining => enemies.Count;
@@ -116,10 +124,10 @@ public class RoomCombat : MonoBehaviour
 
         Debug.Log("¡¡¡ HABITACIÓN COMPLETADA !!!");
 
-        // Avisamos UNA sola vez de que esta sala se acaba de completar
+        SpawnRewardPickup();
+
         OnAnyRoomCompleted?.Invoke();
     }
-
     private void CloseDoors()
     {
         foreach (Door door in doors)
@@ -135,6 +143,50 @@ public class RoomCombat : MonoBehaviour
         {
             if (door != null)
                 door.Open();
+        }
+    }
+    private void SpawnRewardPickup()
+    {
+        if (pickupPrefab != null && possibleModifiers.Count > 0)
+        {
+            ModifierData randomModifier =
+                possibleModifiers[UnityEngine.Random.Range(0, possibleModifiers.Count)];
+
+            GameObject pickupInstance = Instantiate(
+                pickupPrefab, transform.position, Quaternion.identity);
+
+            ModifierPickup pickup = pickupInstance.GetComponent<ModifierPickup>();
+
+            if (pickup != null)
+            {
+                pickup.SetModifier(randomModifier);
+            }
+        }
+
+        TrySpawnHealthPickup();
+    }
+
+    private void TrySpawnHealthPickup()
+    {
+        if (healthPickupPrefab == null)
+            return;
+
+        if (UnityEngine.Random.value > healthPickupChance)
+            return;
+
+        float randomPercent =
+            healPercentages[UnityEngine.Random.Range(0, healPercentages.Length)];
+
+        Vector3 offset = new Vector3(1.5f, 0f, 0f);
+
+        GameObject healthInstance = Instantiate(
+            healthPickupPrefab, transform.position + offset, Quaternion.identity);
+
+        HealthPickup healthPickup = healthInstance.GetComponent<HealthPickup>();
+
+        if (healthPickup != null)
+        {
+            healthPickup.SetHealPercentage(randomPercent);
         }
     }
 

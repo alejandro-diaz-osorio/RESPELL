@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da72a1deba8f7ee438072074c6de5419, type: 3}
   m_Name: FireRateUp
   m_EditorClassIdentifier: Assembly-CSharp::ModifierData
-  modifierName: Damage Up
+  modifierName: FireRateUp
   damageBonus: 0
   speedBonus: 0
-  fireRateBonus: 0
+  fireRateBonus: 1
   projectileCountBonus: 0
   enablePiercing: 0
   enableBouncing: 0

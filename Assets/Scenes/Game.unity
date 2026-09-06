@@ -995,6 +995,18 @@ MonoBehaviour:
   - {fileID: 336671702}
   - {fileID: 906047387}
   - {fileID: 1255587652}
+  pickupPrefab: {fileID: 7315279469537789792, guid: 3195cec0520cc2d41afe474fd451f196, type: 3}
+  possibleModifiers:
+  - {fileID: 11400000, guid: 1f5963da69c17994d8eadb6a14cf84e3, type: 2}
+  - {fileID: 11400000, guid: d08926235ff2d504cb3ffcfbe3b441f2, type: 2}
+  - {fileID: 11400000, guid: 58391b4f6a420fc4394efd4f31a294db, type: 2}
+  - {fileID: 11400000, guid: 61e3aa177f8f6074cbf12ebbfe844016, type: 2}
+  - {fileID: 11400000, guid: 03064b52f12cce0479551a6a67d46737, type: 2}
+  - {fileID: 11400000, guid: 19e195f8c8ccd074a90107026de46b13, type: 2}
+  - {fileID: 11400000, guid: 792aa42ebfd47674f9c425bc7982a50d, type: 2}
+  - {fileID: 11400000, guid: a5da6739d1842ed4e943f208bc79daad, type: 2}
+  healthPickupPrefab: {fileID: 5170792116313557780, guid: fd760271ef029a24ab18561a1fced1fe, type: 3}
+  healthPickupChance: 0.3
 --- !u!4 &315073864
 Transform:
   m_ObjectHideFlags: 0
@@ -1585,6 +1597,18 @@ MonoBehaviour:
   - {fileID: 737836644}
   - {fileID: 1993041422}
   - {fileID: 811026348}
+  pickupPrefab: {fileID: 7315279469537789792, guid: 3195cec0520cc2d41afe474fd451f196, type: 3}
+  possibleModifiers:
+  - {fileID: 11400000, guid: 1f5963da69c17994d8eadb6a14cf84e3, type: 2}
+  - {fileID: 11400000, guid: d08926235ff2d504cb3ffcfbe3b441f2, type: 2}
+  - {fileID: 11400000, guid: 58391b4f6a420fc4394efd4f31a294db, type: 2}
+  - {fileID: 11400000, guid: 61e3aa177f8f6074cbf12ebbfe844016, type: 2}
+  - {fileID: 11400000, guid: 03064b52f12cce0479551a6a67d46737, type: 2}
+  - {fileID: 11400000, guid: 19e195f8c8ccd074a90107026de46b13, type: 2}
+  - {fileID: 11400000, guid: 792aa42ebfd47674f9c425bc7982a50d, type: 2}
+  - {fileID: 11400000, guid: a5da6739d1842ed4e943f208bc79daad, type: 2}
+  healthPickupPrefab: {fileID: 5170792116313557780, guid: fd760271ef029a24ab18561a1fced1fe, type: 3}
+  healthPickupChance: 0.3
 --- !u!4 &412832498
 Transform:
   m_ObjectHideFlags: 0
@@ -5262,6 +5286,10 @@ MonoBehaviour:
   - {fileID: 1157541297}
   - {fileID: 1710823105}
   - {fileID: 1759584376}
+  pickupPrefab: {fileID: 0}
+  possibleModifiers: []
+  healthPickupPrefab: {fileID: 0}
+  healthPickupChance: 0.3
 --- !u!1 &1371190211
 GameObject:
   m_ObjectHideFlags: 0
@@ -9936,6 +9964,18 @@ MonoBehaviour:
   - {fileID: 1600795681}
   - {fileID: 2020084078}
   - {fileID: 1863620092}
+  pickupPrefab: {fileID: 7315279469537789792, guid: 3195cec0520cc2d41afe474fd451f196, type: 3}
+  possibleModifiers:
+  - {fileID: 11400000, guid: 1f5963da69c17994d8eadb6a14cf84e3, type: 2}
+  - {fileID: 11400000, guid: d08926235ff2d504cb3ffcfbe3b441f2, type: 2}
+  - {fileID: 11400000, guid: 58391b4f6a420fc4394efd4f31a294db, type: 2}
+  - {fileID: 11400000, guid: 61e3aa177f8f6074cbf12ebbfe844016, type: 2}
+  - {fileID: 11400000, guid: 03064b52f12cce0479551a6a67d46737, type: 2}
+  - {fileID: 11400000, guid: 19e195f8c8ccd074a90107026de46b13, type: 2}
+  - {fileID: 11400000, guid: 792aa42ebfd47674f9c425bc7982a50d, type: 2}
+  - {fileID: 11400000, guid: a5da6739d1842ed4e943f208bc79daad, type: 2}
+  healthPickupPrefab: {fileID: 5170792116313557780, guid: fd760271ef029a24ab18561a1fced1fe, type: 3}
+  healthPickupChance: 0.3
 --- !u!4 &2021233725
 Transform:
   m_ObjectHideFlags: 0

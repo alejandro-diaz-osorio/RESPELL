@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da72a1deba8f7ee438072074c6de5419, type: 3}
   m_Name: PiercingRounds
   m_EditorClassIdentifier: Assembly-CSharp::ModifierData
-  modifierName: 
+  modifierName: PiercingRounds
   damageBonus: 0
   speedBonus: 0
   fireRateBonus: 0
   projectileCountBonus: 0
-  enablePiercing: 0
+  enablePiercing: 1
   enableBouncing: 0
   enableExplosive: 0
   enableHoming: 0

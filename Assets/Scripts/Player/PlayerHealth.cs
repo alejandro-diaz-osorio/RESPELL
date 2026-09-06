@@ -60,6 +60,17 @@ public class PlayerHealth : MonoBehaviour
             screenFlash.Flash();
         }
     }
+    public void HealPercentage(float percent)
+    {
+        float healAmount = maxHealth * percent;
+
+        currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
+
+        Debug.Log(
+            $"Player curado {healAmount:0} ({percent * 100:0}%). " +
+            $"HP: {currentHealth}/{maxHealth}"
+        );
+    }
 
     private IEnumerator FlashRoutine()
     {
