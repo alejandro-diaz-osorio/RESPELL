@@ -11,9 +11,12 @@ public class SpellStats
     public int projectileCount = 1;
 
     public float fireRate = 4f;
-
     public bool piercing = false;
     public bool bouncing = false;
     public bool explosive = false;
     public bool homing = false;
+    public float explosionRadius = 1.5f;
+    public float explosionDamage = 8f;
+    public float homingTurnSpeed = 180f;
+    public float homingDetectionRadius = 5f;
 }
