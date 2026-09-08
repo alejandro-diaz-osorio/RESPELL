@@ -36,11 +36,6 @@ public class PlayerHealth : MonoBehaviour
         currentHealth =
             Mathf.Max(currentHealth, 0);
 
-        Debug.Log(
-            $"Player recibió {damage} de daño. " +
-            $"HP: {currentHealth}/{maxHealth}"
-        );
-
         if (currentHealth <= 0)
         {
             Die();
@@ -65,11 +60,6 @@ public class PlayerHealth : MonoBehaviour
         float healAmount = maxHealth * percent;
 
         currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
-
-        Debug.Log(
-            $"Player curado {healAmount:0} ({percent * 100:0}%). " +
-            $"HP: {currentHealth}/{maxHealth}"
-        );
     }
 
     private IEnumerator FlashRoutine()
@@ -77,7 +67,6 @@ public class PlayerHealth : MonoBehaviour
         float halfDuration = flashDuration / 2f;
         float elapsed = 0f;
 
-        // Fase 1: transición suave hacia el color de flash
         while (elapsed < halfDuration)
         {
             elapsed += Time.deltaTime;
@@ -88,7 +77,6 @@ public class PlayerHealth : MonoBehaviour
 
         elapsed = 0f;
 
-        // Fase 2: transición suave de vuelta al color original
         while (elapsed < halfDuration)
         {
             elapsed += Time.deltaTime;
@@ -107,13 +95,7 @@ public class PlayerHealth : MonoBehaviour
         {
             StopCoroutine(flashRoutine);
         }
-
-        // Nos aseguramos de que quede con su color original,
-        // por si el GameObject se reactiva más adelante (respawn, etc.)
         spriteRenderer.color = originalColor;
-
-        Debug.Log("GAME OVER");
-
         gameObject.SetActive(false);
     }
 }

@@ -27,7 +27,6 @@ public class Door : MonoBehaviour
             spriteRenderer.enabled = false;
         }
 
-        Debug.Log(gameObject.name + " abierta.");
     }
 
     public void Close()
@@ -44,7 +43,6 @@ public class Door : MonoBehaviour
             spriteRenderer.enabled = true;
         }
 
-        Debug.Log(gameObject.name + " cerrada.");
     }
 
     public bool IsOpen => isOpen;

@@ -10,9 +10,17 @@ public class RoomCombat : MonoBehaviour
         Combat,
         Completed
     }
-
+    public bool HasBeenVisited { get; private set; }
     [Header("Doors")]
     [SerializeField] private List<Door> doors = new();
+
+    [Header("Configuración de puertas")]
+    [Tooltip("Declara en qué direcciones tiene puerta esta sala. Debe coincidir " +
+             "exactamente con las puertas físicas configuradas arriba.")]
+    [SerializeField] private List<Direction> doorDirections = new();
+    public int DoorsCount => doors.Count;
+
+    public IReadOnlyList<Direction> DoorDirections => doorDirections;
 
     [Header("Pickup de recompensa")]
     [SerializeField] private GameObject pickupPrefab;
@@ -55,6 +63,7 @@ public class RoomCombat : MonoBehaviour
 
         playerInside = true;
         CurrentRoom = this;
+        HasBeenVisited = true;
 
         if (currentState == RoomState.Waiting)
         {
@@ -86,7 +95,6 @@ public class RoomCombat : MonoBehaviour
         currentState = RoomState.Combat;
         CloseDoors();
 
-        Debug.Log("¡Combate iniciado en la habitación: " + gameObject.name + "!");
     }
 
     private void RegisterEnemy(EnemyHealth enemy)
@@ -109,8 +117,6 @@ public class RoomCombat : MonoBehaviour
             enemy.OnEnemyDeath -= HandleEnemyDeath;
         }
 
-        Debug.Log("Enemigo eliminado: " + enemy.gameObject.name + " | Restantes: " + EnemiesRemaining);
-
         if (currentState == RoomState.Combat && EnemiesRemaining == 0)
         {
             CompleteRoom();
@@ -121,9 +127,6 @@ public class RoomCombat : MonoBehaviour
     {
         currentState = RoomState.Completed;
         OpenDoors();
-
-        Debug.Log("¡¡¡ HABITACIÓN COMPLETADA !!!");
-
         SpawnRewardPickup();
 
         OnAnyRoomCompleted?.Invoke();
